@@ -1,22 +1,22 @@
+// app/admin/login/page.tsx
 "use client";
-
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/client";
 
-export default function AdminLogin() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setIsLoading(true);
+    setLoading(true);
 
     try {
+      // 1. Authenticate
       const { data, error: authError } = await supabase.auth.signInWithPassword(
         {
           email,
@@ -26,84 +26,61 @@ export default function AdminLogin() {
 
       if (authError) throw authError;
 
-      if (data.user) {
-        const { data: userData, error: userError } = await supabase
-          .from("profiles")
-          .select("is_admin")
-          .eq("id", data.user.id)
-          .single();
+      // 2. Verify admin status
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("is_admin")
+        .eq("id", data.user?.id)
+        .single();
 
-        if (userError || !userData?.is_admin) {
-          await supabase.auth.signOut();
-          throw new Error("Unauthorized access");
-        }
-
-        router.push("/admin/dashboard");
+      if (!profile?.is_admin) {
+        await supabase.auth.signOut();
+        throw new Error("Admin access required");
       }
+
+      // 3. Redirect
+      router.push("/admin/dashboard");
+      router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-blue-700">
-      <div className="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-6 text-blue-800">
-          Education Zone Admin
-        </h1>
-
-        {error && (
-          <div className="mb-4 p-2 bg-red-100 text-red-700 rounded text-sm">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="email"
+    <div className="min-h-screen flex items-center justify-center">
+      <form onSubmit={handleLogin} className="card w-96 bg-base-100 shadow-xl">
+        <div className="card-body">
+          <h2 className="card-title">Admin Login</h2>
+          {error && <div className="text-error">{error}</div>}
+          <input
+            type="email"
+            placeholder="Email"
+            className="input input-bordered w-full"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="input input-bordered w-full"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <div className="card-actions justify-end">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={loading}
             >
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
+              {loading ? "Logging in..." : "Login"}
+            </button>
           </div>
-
-          <div>
-            <label
-              className="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="password"
-            >
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors disabled:opacity-70"
-          >
-            {isLoading ? "Logging in..." : "Login"}
-          </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 }
