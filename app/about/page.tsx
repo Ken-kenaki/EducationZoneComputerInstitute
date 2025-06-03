@@ -14,7 +14,7 @@ export default function About(): JSX.Element {
     <div className="max-w-6xl mx-auto px-4 py-12 space-y-12">
       {/* Hero Section */}
       <div
-        className="rounded-xl p-8 text-white"
+        className="rounded-sm p-8 text-white"
         style={{
           background: "linear-gradient(135deg, #001f99 0%, #003366 100%)",
           boxShadow: "0 4px 20px rgba(0, 31, 153, 0.3)",

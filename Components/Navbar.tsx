@@ -31,7 +31,7 @@ export default function Navbar() {
   }, [isOpen]);
 
   return (
-    <nav className="bg-blue-800 text-white p-4 shadow-md">
+    <nav className="bg-blue-800 text-white p-4 shadow-md fixed top-0 z-100 w-full">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-xl font-bold whitespace-nowrap">
           Education Zone

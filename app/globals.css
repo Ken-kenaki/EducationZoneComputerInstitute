@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+/* For Webkit browsers (Chrome, Safari) */
+html {
+  overflow-y: scroll;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For IE and Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari */
+}
+
+body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}

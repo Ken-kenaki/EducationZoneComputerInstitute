@@ -3,6 +3,8 @@ import WhyChooseUs from "../Components/WhyChooseUs";
 import OurTeam from "../Components/Team";
 import Testimonials from "../Components/Testimonials";
 import CallToAction from "../Components/Cta";
+import { HomeAboutSection } from "@/Components/HomeAbout";
+import { HomeCoursesSection } from "@/Components/HomeCourses";
 
 export default function Home(): JSX.Element {
   return (
@@ -14,6 +16,12 @@ export default function Home(): JSX.Element {
       </div>
       <div className="overflow-x-auto">
         <Testimonials />
+      </div>
+      <div className="overflow-x-auto">
+        <HomeAboutSection />
+      </div>
+      <div className="overflow-x-auto">
+        <HomeCoursesSection />
       </div>
       <CallToAction />
     </main>
