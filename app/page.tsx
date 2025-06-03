@@ -12,17 +12,18 @@ export default function Home(): JSX.Element {
       <HeroSection />
       <WhyChooseUs />
       <div className="overflow-x-auto">
-        <OurTeam />
-      </div>
-      <div className="overflow-x-auto">
-        <Testimonials />
+        <HomeCoursesSection />
       </div>
       <div className="overflow-x-auto">
         <HomeAboutSection />
       </div>
       <div className="overflow-x-auto">
-        <HomeCoursesSection />
+        <OurTeam />
       </div>
+      <div className="overflow-x-auto">
+        <Testimonials />
+      </div>
+
       <CallToAction />
     </main>
   );

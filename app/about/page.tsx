@@ -1,4 +1,7 @@
+"use client"; // Add this since we have interactive elements
+
 import Image from "next/image";
+import Link from "next/link";
 
 export default function About(): JSX.Element {
   const teamMembers = [
@@ -11,7 +14,7 @@ export default function About(): JSX.Element {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12 space-y-12">
+    <div className="max-w-6xl mx-auto px-4 py-25 space-y-12">
       {/* Hero Section */}
       <div
         className="rounded-sm p-8 text-white"
@@ -47,8 +50,8 @@ export default function About(): JSX.Element {
               <Image
                 src="/edu.jpg"
                 alt="Education Zone Campus"
-                layout="fill"
-                objectFit="cover"
+                fill
+                className="object-cover"
               />
             </div>
           </div>
@@ -116,11 +119,7 @@ export default function About(): JSX.Element {
         ></div>
 
         <div className="flex justify-center">
-          {" "}
-          {/* Changed this line */}
           <div className="grid md:grid-cols-1 gap-8 mt-8 max-w-md">
-            {" "}
-            {/* Changed this line */}
             {teamMembers.map((member, index) => (
               <div
                 key={index}
@@ -131,8 +130,8 @@ export default function About(): JSX.Element {
                   <Image
                     src={member.image}
                     alt={member.name}
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
                 <div className="p-6">
@@ -149,6 +148,16 @@ export default function About(): JSX.Element {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Admin Login Button - Fixed to use Link */}
+      <div className="fixed bottom-4 right-4">
+        <Link
+          href="/admin/login"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg transition-all block"
+        >
+          Admin Login
+        </Link>
       </div>
 
       {/* Values Section */}

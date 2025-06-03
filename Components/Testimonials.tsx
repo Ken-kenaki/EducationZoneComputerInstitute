@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase/client";
 
 type Testimonial = {
   id: string;
@@ -25,8 +25,6 @@ export default function TestimonialsSection() {
     rating: 5,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Add this to your component
   const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {
@@ -42,20 +40,6 @@ export default function TestimonialsSection() {
     };
   }, []);
 
-  // Modify your submit buttonz
-  <button
-    type="submit"
-    disabled={!isOnline}
-    className={`w-full py-2 rounded ${
-      !isOnline
-        ? "bg-gray-400 cursor-not-allowed"
-        : "bg-blue-600 hover:bg-blue-700 text-white"
-    }`}
-  >
-    {!isOnline ? "Offline - Cannot Submit" : "Submit Testimonial"}
-  </button>;
-
-  // Fetch testimonials
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
@@ -95,7 +79,6 @@ export default function TestimonialsSection() {
 
       if (error) throw error;
 
-      // Update state
       setTestimonials([data[0], ...testimonials]);
       setIsModalOpen(false);
       setFormData({
@@ -114,35 +97,42 @@ export default function TestimonialsSection() {
 
   return (
     <section className="py-12 px-4 bg-gray-50">
-      <div className="container mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12">
-          What People Say
-        </h2>
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-800 mb-4">
+            What Our Students Say
+          </h2>
+          <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+        </div>
 
         {/* Testimonials Slider */}
         <Swiper
           modules={[Pagination]}
           spaceBetween={30}
           slidesPerView={1}
-          pagination={{ clickable: true }}
+          pagination={{
+            clickable: true,
+            bulletClass: "swiper-pagination-bullet bg-gray-300",
+            bulletActiveClass: "swiper-pagination-bullet-active bg-blue-600",
+          }}
           breakpoints={{ 1024: { slidesPerView: 2 } }}
           className="!pb-12"
         >
           {testimonials.map((item) => (
             <SwiperSlide key={item.id}>
-              <div className="bg-white p-6 rounded-lg shadow h-full">
-                <div className="flex mb-2">
+              <div className="bg-white p-8 rounded-xl shadow-md h-full border-t-4 border-blue-600">
+                <div className="flex mb-4">
                   {[...Array(5)].map((_, i) => (
                     <StarIcon key={i} filled={i < item.rating} />
                   ))}
                 </div>
-                <p className="italic mb-4">"{item.content}"</p>
+                <p className="text-gray-600 italic mb-6">"{item.content}"</p>
                 <div className="flex items-center">
-                  <div className="bg-blue-100 text-blue-800 rounded-full h-10 w-10 flex items-center justify-center mr-3">
+                  <div className="bg-blue-100 text-blue-800 rounded-full h-12 w-12 flex items-center justify-center mr-4 font-bold">
                     {item.name.charAt(0)}
                   </div>
                   <div>
-                    <h4 className="font-semibold">{item.name}</h4>
+                    <h4 className="font-bold text-gray-800">{item.name}</h4>
                     <p className="text-sm text-gray-500">{item.role}</p>
                   </div>
                 </div>
@@ -155,7 +145,7 @@ export default function TestimonialsSection() {
         <div className="text-center mt-8">
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+            className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
             Share Your Experience
           </button>
@@ -165,12 +155,31 @@ export default function TestimonialsSection() {
       {/* Testimonial Form Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold">Add Testimonial</h3>
-              <button onClick={() => setIsModalOpen(false)}>✕</button>
+          <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold text-gray-800">
+                Add Your Testimonial
+              </h3>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <InputField
                 label="Your Name"
                 name="name"
@@ -181,7 +190,7 @@ export default function TestimonialsSection() {
               />
 
               <InputField
-                label="Your Role"
+                label="Your Role (e.g., Student, Parent)"
                 name="role"
                 value={formData.role}
                 onChange={(e) =>
@@ -190,13 +199,13 @@ export default function TestimonialsSection() {
               />
 
               <div>
-                <label className="block mb-1">Rating</label>
+                <label className="block text-gray-700 mb-2">Your Rating</label>
                 <select
                   value={formData.rating}
                   onChange={(e) =>
                     setFormData({ ...formData, rating: +e.target.value })
                   }
-                  className="w-full p-2 border rounded"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   {[5, 4, 3, 2, 1].map((num) => (
                     <option key={num} value={num}>
@@ -207,24 +216,32 @@ export default function TestimonialsSection() {
               </div>
 
               <div>
-                <label className="block mb-1">Testimonial</label>
+                <label className="block text-gray-700 mb-2">
+                  Your Experience
+                </label>
                 <textarea
                   name="content"
                   value={formData.content}
                   onChange={(e) =>
                     setFormData({ ...formData, content: e.target.value })
                   }
-                  className="w-full p-2 border rounded"
-                  rows={4}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  rows={5}
                   required
+                  placeholder="Share your learning experience..."
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+                disabled={!isOnline}
+                className={`w-full py-3 rounded-lg font-medium ${
+                  !isOnline
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-600 hover:bg-blue-700 text-white"
+                }`}
               >
-                Submit
+                {!isOnline ? "Offline - Cannot Submit" : "Submit Testimonial"}
               </button>
             </form>
           </div>
@@ -234,11 +251,10 @@ export default function TestimonialsSection() {
   );
 }
 
-// Helper components
 function StarIcon({ filled }: { filled: boolean }) {
   return (
     <svg
-      className={`w-5 h-5 ${filled ? "text-yellow-400" : "text-gray-300"}`}
+      className={`w-6 h-6 ${filled ? "text-yellow-500" : "text-gray-300"}`}
       fill="currentColor"
       viewBox="0 0 20 20"
     >
@@ -250,8 +266,12 @@ function StarIcon({ filled }: { filled: boolean }) {
 function InputField({ label, ...props }: any) {
   return (
     <div>
-      <label className="block mb-1">{label}</label>
-      <input {...props} className="w-full p-2 border rounded" required />
+      <label className="block text-gray-700 mb-2">{label}</label>
+      <input
+        {...props}
+        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        required
+      />
     </div>
   );
 }

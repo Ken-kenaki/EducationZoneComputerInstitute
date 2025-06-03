@@ -45,7 +45,7 @@ const courses: Course[] = [
 
 export default function Courses(): JSX.Element {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-25">
       {/* Header Section */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">
