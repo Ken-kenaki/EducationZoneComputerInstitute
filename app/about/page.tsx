@@ -172,18 +172,19 @@ export default function About(): JSX.Element {
 
         <div className="grid md:grid-cols-4 gap-4">
           {[
-            { title: "Excellence", color: "#ff0000" },
-            { title: "Integrity", color: "#001f99" },
-            { title: "Innovation", color: "#008000" },
-            { title: "Community", color: "#003366" },
+            { title: "Excellence", color: "#ff0000", link: "/excellence" },
+            { title: "Integrity", color: "#001f99", link: "/integrity" },
+            { title: "Innovation", color: "#008000", link: "/innovation" },
+            { title: "Community", color: "#003366", link: "/community" },
           ].map((value, index) => (
-            <div
+            <Link
               key={index}
-              className="p-4 rounded-lg text-white font-bold text-lg"
+              href={value.link}
+              className="p-4 rounded-lg text-white font-bold text-lg transition-transform transform hover:scale-105"
               style={{ backgroundColor: value.color }}
             >
               {value.title}
-            </div>
+            </Link>
           ))}
         </div>
       </div>

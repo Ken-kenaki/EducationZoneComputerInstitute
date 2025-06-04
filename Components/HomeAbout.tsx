@@ -31,8 +31,8 @@ export function HomeAboutSection() {
           <Image
             src="/edu.jpg"
             alt="Education Zone Campus"
-            layout="fill"
-            objectFit="cover"
+            fill
+            className="object-cover"
           />
         </div>
       </div>

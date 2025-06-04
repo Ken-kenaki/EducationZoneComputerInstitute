@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/utils/supabase/client";
 
 type Testimonial = {
   id: string;
@@ -43,6 +43,7 @@ export default function TestimonialsSection() {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
+        const supabase = createClient();
         const { data, error } = await supabase
           .from("testimonials")
           .select("*")
@@ -64,6 +65,7 @@ export default function TestimonialsSection() {
     e.preventDefault();
 
     try {
+      const supabase = createClient();
       const { data, error } = await supabase
         .from("testimonials")
         .insert([

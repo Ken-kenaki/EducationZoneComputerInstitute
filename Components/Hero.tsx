@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
@@ -8,8 +9,8 @@ export default function HeroSection() {
         <Image
           src="/hero.jpg"
           alt="Education Zone background"
-          layout="fill"
-          objectFit="cover"
+          fill
+          className="object-cover"
           quality={100}
           priority
         />
@@ -25,9 +26,11 @@ export default function HeroSection() {
         <p className="text-lg sm:text-xl mb-6 text-white">
           Empowering the digital generation
         </p>
-        <button className="bg-white text-blue-700 px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition-colors duration-300">
-          Explore Courses
-        </button>
+        <Link href="/courses">
+          <button className="bg-white text-blue-700 px-6 py-2 rounded-full font-semibold hover:bg-gray-200 transition-colors duration-300">
+            Explore Courses
+          </button>
+        </Link>
       </div>
     </section>
   );
