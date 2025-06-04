@@ -6,9 +6,9 @@ import Link from "next/link";
 export default function About(): JSX.Element {
   const teamMembers = [
     {
-      name: "John Doe",
+      name: "Uddhav Thapa",
       role: "Founder & Director",
-      bio: "With over 15 years in IT education, John founded Education Zone to bridge the digital divide.",
+      bio: "With over 15 years in education Sector, Uddhav founded Education Zone to bridge the digital divide.",
       image: "/sir.jpg",
     },
   ];
@@ -121,9 +121,10 @@ export default function About(): JSX.Element {
         <div className="flex justify-center">
           <div className="grid md:grid-cols-1 gap-8 mt-8 max-w-md">
             {teamMembers.map((member, index) => (
-              <div
+              <Link
                 key={index}
-                className="bg-white rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105"
+                href="/founder"
+                className="bg-white rounded-xl overflow-hidden shadow-lg transition-transform hover:scale-105 block"
                 style={{ borderTop: "4px solid #001f99" }}
               >
                 <div className="h-64 relative">
@@ -144,7 +145,7 @@ export default function About(): JSX.Element {
                   <p className="text-red-600 font-medium mb-3">{member.role}</p>
                   <p className="text-gray-600">{member.bio}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
