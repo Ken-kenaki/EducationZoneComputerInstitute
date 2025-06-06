@@ -133,7 +133,7 @@ export default function Navbar() {
       {/* Mobile menu */}
       <div
         ref={mobileMenuRef}
-        className={`max-[750px]:fixed fixed top-0 right-0 h-full w-64 bg-blue-900 transform transition-transform duration-300 ease-in-out z-50 p-6 ${
+        className={`max-[750px]:fixed bg fixed top-0 right-0 h-[100vh] w-64 bg-blue-900 transform transition-transform duration-300 ease-in-out z-50 p-6 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

@@ -2,9 +2,9 @@ import { FaChalkboardTeacher, FaUserTie, FaUsers } from "react-icons/fa";
 
 export default function ExpertInstruction() {
   return (
-    <div className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-blue-900 to-blue-800 text-white min-h-screen">
+    <div className="py-20 px-4 sm:px-6 lg:px-8 text-white min-h-screen">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold mb-12 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold text-blue-800 mb-12 text-center">
           Expert Instruction
         </h1>
 
@@ -37,7 +37,7 @@ export default function ExpertInstruction() {
           </div>
         </div>
 
-        <div className="bg-white/10 p-8 rounded-xl backdrop-blur-sm">
+        <div className="bg-white/10 p-8 text-blue-900 rounded-xl backdrop-blur-sm">
           <h2 className="text-3xl font-bold mb-6">Our Teaching Methodology</h2>
           <p className="text-lg mb-6">
             We combine theoretical knowledge with practical applications
