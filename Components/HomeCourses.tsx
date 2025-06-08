@@ -1,4 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function HomeCoursesSection() {
   const featuredCourses = [
@@ -15,6 +22,32 @@ export function HomeCoursesSection() {
       duration: "18 Months",
     },
   ];
+
+  useEffect(() => {
+    const lines = gsap.utils.toArray(".course-line");
+
+    lines.forEach((line) => {
+      gsap.fromTo(
+        line,
+        { width: "0rem" },
+        {
+          width: "3rem", // same as Tailwind `w-12`
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: line,
+            start: "top 100%",
+            end: "bottom 50%",
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
 
   return (
     <section className="bg-gray-50 py-12">
@@ -34,7 +67,10 @@ export function HomeCoursesSection() {
                 {course.name}
               </h3>
               <p className="text-gray-600 mb-4">Duration: {course.duration}</p>
-              <div className="h-1 w-12 bg-blue-500 mb-4"></div>
+              <div
+                className="h-1 w-12 bg-blue-500 mb-4 course-line"
+                style={{ width: "0rem" }} // override Tailwind to start at 0
+              ></div>
               <p className="text-gray-600">
                 Comprehensive training with certification upon completion.
               </p>

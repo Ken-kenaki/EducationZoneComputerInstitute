@@ -1,8 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function WhyChooseUs() {
+  const containerRef = useRef(null);
+  const headingRef = useRef(null);
+
   const cards = [
     {
       title: "Expert Instruction",
@@ -28,10 +36,58 @@ export default function WhyChooseUs() {
     },
   ];
 
+  useEffect(() => {
+    // Animate the heading
+    gsap.fromTo(
+      headingRef.current,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: "top 90%",
+          toggleActions: "play reverse play reverse",
+        },
+      }
+    );
+
+    // Animate each card
+    const elements = gsap.utils.toArray(".why-card");
+    elements.forEach((el, i) => {
+      gsap.fromTo(
+        el,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+            toggleActions: "play reverse play reverse",
+          },
+          delay: i * 0.1,
+        }
+      );
+    });
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, []);
+
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section
+      ref={containerRef}
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"
+    >
       <h2
-        className="text-4xl md:text-5xl font-bold text-center mb-16 animate-fade-in-up"
+        ref={headingRef}
+        className="text-4xl md:text-5xl font-bold text-center mb-16"
         style={{ color: "#003366" }}
       >
         Why Choose Us?
@@ -41,13 +97,11 @@ export default function WhyChooseUs() {
           <Link href={card.link} key={idx} passHref>
             <div
               className={`
-                ${card.bgColor} ${card.textColor} 
-                p-10 rounded-2xl shadow-xl 
+                ${card.bgColor} ${card.textColor}
+                why-card p-10 rounded-2xl shadow-xl 
                 transition-all duration-300 h-full 
                 cursor-pointer hover:shadow-2xl hover:scale-[1.02]
-                animate-fade-in-up
               `}
-              style={{ animationDelay: `${idx * 0.1}s` }}
             >
               <h3 className="text-2xl md:text-3xl font-bold mb-8">
                 {card.title}

@@ -77,15 +77,15 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative w-full h-130 sm:h-[300px] md:h-[400px] lg:h-[600px] flex justify-center items-center flex-col shadow-lg overflow-hidden"
+      className="relative w-full h-130 mt-15 lg:h-160 flex justify-center items-center flex-col shadow-lg overflow-hidden"
     >
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
+          className="object-cover"
           src="/hero.jpg"
           alt="Education Zone background"
           layout="fill"
-          objectFit="cover"
           quality={100}
           priority
         />
