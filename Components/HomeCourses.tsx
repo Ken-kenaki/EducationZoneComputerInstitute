@@ -24,14 +24,14 @@ export function HomeCoursesSection() {
   ];
 
   useEffect(() => {
-    const lines = gsap.utils.toArray(".course-line");
+    const lines = gsap.utils.toArray(".course-line") as Element[];
 
     lines.forEach((line) => {
       gsap.fromTo(
         line,
         { width: "0rem" },
         {
-          width: "3rem", // same as Tailwind `w-12`
+          width: "3rem",
           duration: 0.6,
           ease: "power3.out",
           scrollTrigger: {
