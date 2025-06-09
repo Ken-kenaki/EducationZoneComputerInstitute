@@ -28,7 +28,7 @@ const InputField = ({
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }) => (
   <div className="flex flex-col gap-1">
-    <label htmlFor={name} className="text-white font-medium">
+    <label htmlFor={name} className="text-gray-800 font-medium">
       {label}
     </label>
     {name === "content" ? (
@@ -36,7 +36,7 @@ const InputField = ({
         name={name}
         value={value}
         onChange={onChange}
-        className="p-2 rounded bg-white text-black"
+        className="p-2 rounded bg-gray-100 text-gray-800 border border-gray-300"
         rows={4}
         required
       />
@@ -46,7 +46,7 @@ const InputField = ({
         name={name}
         value={value}
         onChange={onChange}
-        className="p-2 rounded bg-white text-black"
+        className="p-2 rounded bg-gray-100 text-gray-800 border border-gray-300"
         required
       />
     )}
@@ -129,10 +129,10 @@ const TestimonialsSection = () => {
   };
 
   return (
-    <div className="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8 relative">
+    <div className="bg-white text-gray-800 py-16 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-3xl mx-auto text-center">
         <h2 className="text-3xl font-bold mb-4">What Others Are Saying</h2>
-        <p className="text-gray-400 mb-8">
+        <p className="text-gray-600 mb-8">
           Real feedback from our awesome community.
         </p>
         <button
@@ -149,8 +149,8 @@ const TestimonialsSection = () => {
           aria-modal="true"
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
         >
-          <div className="bg-gray-800 p-8 rounded-lg max-w-md w-full">
-            <h3 className="text-xl font-bold mb-4 text-white">
+          <div className="bg-white p-8 rounded-lg max-w-md w-full">
+            <h3 className="text-xl font-bold mb-4 text-gray-800">
               Your Testimonial
             </h3>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -173,14 +173,14 @@ const TestimonialsSection = () => {
                 onChange={handleChange}
               />
               <div className="flex flex-col gap-1">
-                <label htmlFor="rating" className="text-white font-medium">
+                <label htmlFor="rating" className="text-gray-800 font-medium">
                   Rating
                 </label>
                 <select
                   name="rating"
                   value={formData.rating}
                   onChange={handleChange}
-                  className="p-2 rounded bg-white text-black"
+                  className="p-2 rounded bg-gray-100 text-gray-800 border border-gray-300"
                   required
                 >
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -193,7 +193,7 @@ const TestimonialsSection = () => {
               <button
                 type="submit"
                 disabled={!isOnline || submitting}
-                className={`px-4 py-2 mt-4 rounded ${
+                className={`px-4 py-2 mt-4 rounded text-white ${
                   isOnline && !submitting
                     ? "bg-blue-500 hover:bg-blue-600"
                     : "bg-gray-500 cursor-not-allowed"
@@ -208,7 +208,7 @@ const TestimonialsSection = () => {
               <button
                 type="button"
                 onClick={() => setShowModal(false)}
-                className="mt-2 text-sm text-gray-300 hover:underline"
+                className="mt-2 text-sm text-gray-600 hover:underline"
               >
                 Cancel
               </button>
@@ -218,7 +218,7 @@ const TestimonialsSection = () => {
       )}
 
       {testimonials.length === 0 ? (
-        <div className="text-center mt-8 text-gray-400 italic">
+        <div className="text-center mt-8 text-gray-600 italic">
           No testimonials yet. Be the first to share!
         </div>
       ) : (
@@ -238,13 +238,15 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial) => (
             <SwiperSlide
               key={testimonial.id}
-              className="bg-gray-800 p-6 rounded-lg shadow-md"
+              className="bg-gray-50 p-6 rounded-lg shadow-md border border-gray-200"
             >
-              <p className="text-gray-300 italic mb-4">{testimonial.content}</p>
+              <p className="text-gray-700 italic mb-4">{testimonial.content}</p>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-semibold text-white">{testimonial.name}</p>
-                  <p className="text-sm text-gray-400">{testimonial.role}</p>
+                  <p className="font-semibold text-gray-900">
+                    {testimonial.name}
+                  </p>
+                  <p className="text-sm text-gray-600">{testimonial.role}</p>
                 </div>
                 <div className="flex gap-1">
                   {[...Array(testimonial.rating)].map((_, i) => (
