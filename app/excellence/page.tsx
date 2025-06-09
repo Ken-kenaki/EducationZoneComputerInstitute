@@ -9,10 +9,10 @@ export default function ExcellencePage() {
       </h1>
       <div className="w-24 h-1 bg-blue-600 mx-auto mb-8"></div>
       <p className="text-lg text-gray-700 mb-6">
-        At Education Zone, excellence isn &rsquo;t just a goal — it's a standard
-        we live by. We believe that true educational excellence is measured not
-        just by academic achievement, but by the impact we create in the lives
-        of our students and community.
+        At Education Zone, excellence isn &rsquo;t just a goal — it &rsquo;s a
+        standard we live by. We believe that true educational excellence is
+        measured not just by academic achievement, but by the impact we create
+        in the lives of our students and community.
       </p>
       <p className="text-gray-700 mb-4">
         Our programs are designed with a strong emphasis on practical learning,
