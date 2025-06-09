@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { JSX } from "react";
 
 export default function Founder(): JSX.Element {
   const founder = {

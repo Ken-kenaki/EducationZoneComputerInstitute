@@ -1,7 +1,7 @@
 // Admission.tsx
 "use client";
 
-import { useState } from "react";
+import { JSX, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 
 const supabase = createClient();
