@@ -1,5 +1,5 @@
 "use client"; // Add this since we have interactive elements
-
+import React, { JSX } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
