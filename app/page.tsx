@@ -5,6 +5,7 @@ import Testimonials from "../Components/Testimonials";
 import CallToAction from "../Components/Cta";
 import { HomeAboutSection } from "@/Components/HomeAbout";
 import { HomeCoursesSection } from "@/Components/HomeCourses";
+import { JSX } from "react";
 
 export default function Home(): JSX.Element {
   return (
