@@ -8,8 +8,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function WhyChooseUs() {
-  const containerRef = useRef(null);
-  const headingRef = useRef(null);
+  const containerRef = useRef<HTMLElement | null>(null);
+  const headingRef = useRef<HTMLHeadingElement | null>(null);
 
   const cards = [
     {
@@ -37,6 +37,8 @@ export default function WhyChooseUs() {
   ];
 
   useEffect(() => {
+    if (!headingRef.current) return;
+
     // Animate the heading
     gsap.fromTo(
       headingRef.current,
@@ -55,7 +57,7 @@ export default function WhyChooseUs() {
     );
 
     // Animate each card
-    const elements = gsap.utils.toArray(".why-card");
+    const elements = gsap.utils.toArray<HTMLElement>(".why-card");
     elements.forEach((el, i) => {
       gsap.fromTo(
         el,
@@ -94,8 +96,8 @@ export default function WhyChooseUs() {
       </h2>
       <div className="mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 w-full max-w-6xl">
         {cards.map((card, idx) => (
-          <Link href={card.link} key={idx} passHref>
-            <div
+          <Link href={card.link} key={idx}>
+            <a
               className={`
                 ${card.bgColor} ${card.textColor}
                 why-card p-10 rounded-2xl shadow-xl 
@@ -129,7 +131,7 @@ export default function WhyChooseUs() {
                   />
                 </svg>
               </div>
-            </div>
+            </a>
           </Link>
         ))}
       </div>
