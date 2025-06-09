@@ -87,8 +87,8 @@ export default function About(): JSX.Element {
           <p className="text-gray-700">
             To equip students with practical technical skills and confidence to
             thrive in the digital world. We focus on hands-on learning,
-            industry-relevant curriculum, and personal attention to each
-            student's growth.
+            industry-relevant curriculum, and personal attention to each student
+            &rsquo;s growth.
           </p>
         </div>
 

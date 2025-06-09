@@ -40,8 +40,8 @@ export default function QualityEducation() {
         <div className="bg-white/10 text-red-700 p-8 rounded-xl backdrop-blur-sm">
           <h2 className="text-3xl font-bold mb-6">Our Educational Approach</h2>
           <p className="text-lg mb-6">
-            We're committed to providing education that prepares you for the
-            real world:
+            We &rsquo;re committed to providing education that prepares you for
+            the real world:
           </p>
           <ul className="space-y-4 text-lg">
             <li className="flex items-start">

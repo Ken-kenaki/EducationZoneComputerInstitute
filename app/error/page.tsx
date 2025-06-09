@@ -41,7 +41,7 @@ export default function ErrorPage() {
       <p className="text-xl text-gray-600 mb-8 max-w-lg">
         Our hamsters stopped running on their wheels.
         <br />
-        We've sent a team with treats to motivate them!
+        We &rsquo;ve sent a team with treats to motivate them!
       </p>
 
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 w-full max-w-sm">
@@ -62,9 +62,9 @@ export default function ErrorPage() {
 
       <div className="mt-10 text-gray-500 text-sm">
         <p>Error Code: 404-HAMSTER-NOT-FOUND</p>
-        <p className="mt-2">In the meantime, here's a joke:</p>
+        <p className="mt-2">In the meantime, here &rsquo;s a joke:</p>
         <p className="mt-1 italic">
-          Why don't programmers like nature?
+          Why don &rsquo;t programmers like nature?
           <br />
           It has too many bugs! 🐛
         </p>
